@@ -449,7 +449,7 @@ class OC_Util {
 		if ($application !== 'core' && $file !== null) {
 			self::addTranslations ( $application );
 		}
-		self::addExternalRessource($application, $prepend, $path, "script");
+		self::addExternalResource($application, $prepend, $path, "script");
 	}
 
 	/**
@@ -462,7 +462,7 @@ class OC_Util {
 	 */
 	public static function addVendorScript($application, $file = null, $prepend = false) {
 		$path = OC_Util::generatePath($application, 'vendor', $file);
-		self::addExternalRessource($application, $prepend, $path, "script");
+		self::addExternalResource($application, $prepend, $path, "script");
 	}
 
 	/**
@@ -481,7 +481,7 @@ class OC_Util {
 		} else {
 			$path = "l10n/$languageCode";
 		}
-		self::addExternalRessource($application, $prepend, $path, "script");
+		self::addExternalResource($application, $prepend, $path, "script");
 	}
 
 	/**
@@ -494,7 +494,7 @@ class OC_Util {
 	 */
 	public static function addStyle($application, $file = null, $prepend = false) {
 		$path = OC_Util::generatePath($application, 'css', $file);
-		self::addExternalRessource($application, $prepend, $path, "style");
+		self::addExternalResource($application, $prepend, $path, "style");
 	}
 
 	/**
@@ -507,11 +507,11 @@ class OC_Util {
 	 */
 	public static function addVendorStyle($application, $file = null, $prepend = false) {
 		$path = OC_Util::generatePath($application, 'vendor', $file);
-		self::addExternalRessource($application, $file, $prepend, $path, "style");
+		self::addExternalResource($application, $file, $prepend, $path, "style");
 	}
 
 	/**
-	 * add an external ressourse css/js file
+	 * add an external resource css/js file
 	 *
 	 * @param string $application application id
 	 * @param bool $prepend prepend the file to the beginning of the list
@@ -519,7 +519,7 @@ class OC_Util {
 	 * @param string $type (script or style)
 	 * @return void
 	 */
-	private static function addExternalRessource($application, $prepend, $path, $type = "script") {
+	private static function addExternalResource($application, $prepend, $path, $type = "script") {
 
 		if ($type == "style") {
 			if (!in_array($path, self::$styles)) {
