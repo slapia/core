@@ -23,10 +23,11 @@ namespace OCA\ObjectStore\Tests\Unit;
 use OC\Files\ObjectStore\ObjectStoreStorage;
 use OC\Files\ObjectStore\Swift as ObjectStoreToTest;
 
-//class Swift extends PHPUnit_Framework_TestCase {
 class Swift extends \Test\Files\Storage\Storage {
 
-	private $config;
+	/**
+	 * @var ObjectStoreToTest
+	 */
 	private $objectStorage;
 
 	protected function setUp() {
@@ -53,10 +54,10 @@ class Swift extends \Test\Files\Storage\Storage {
 		\OC\Files\Filesystem::tearDown();
 		\OC_User::setUserId('test');
 
-		$this->config = include('objectstore/config.swift.php');
-		$this->objectStorage = new ObjectStoreToTest($this->config['objectstore']['arguments']);
-		$this->config['objectstore'] = $this->objectStorage;
-		$this->instance = new ObjectStoreStorage($this->config);
+		$config = \OC::$server->getConfig()->getSystemValue('objectstore');
+		$this->objectStorage = new ObjectStoreToTest($config['arguments']);
+		$config['objectstore'] = $this->objectStorage;
+		$this->instance = new ObjectStoreStorage($config);
 	}
 
 	protected function tearDown() {
