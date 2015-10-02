@@ -123,8 +123,13 @@ script(
 	{{/if}}
 
 	<div class="warning hidden"></div>
-	<div class="info hidden"></div>
 
+	</div>
+</script>
+
+<script id="app-upgrade-template" type="text/x-handlebars">
+	<div class="mask">
+		<span><?php p($l->t('The app needs to be updated. This page will be reloaded in 5 seconds.')) ?></span>
 	</div>
 </script>
 

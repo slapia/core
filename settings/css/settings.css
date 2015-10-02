@@ -524,9 +524,30 @@ doesnotexist:-o-prefocus, .strengthify-wrapper {
 	color: red;
 }
 
-#apps-list .info {
-	margin-top: 8px;
-	padding: 5px;
-	background: #DFD;
+.mask {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	display: block;
+	z-index: 100000;
+	position: absolute;
+	padding-top: 30%;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.6);
+	text-align: center;
+}
+
+.ie8 .mask {
+	padding-top: 20%;
+}
+
+.mask span {
+	font-size: 16px;
+	background-color: white;
 	border-radius: 3px;
+	max-width: 300px;
+	padding: 10px 15px;
+	display: inline-block;
 }

@@ -246,7 +246,7 @@ OC.Settings.Apps = OC.Settings.Apps || {
 					appItem.addClass('appwarning');
 				} else {
 					if (result.data.update_required) {
-						OC.Settings.Apps.showReloadMessage(appId);
+						OC.Settings.Apps.showReloadMessage();
 
 						setTimeout(function() {
 							location.reload();
@@ -399,12 +399,9 @@ OC.Settings.Apps = OC.Settings.Apps || {
 	},
 
 	showReloadMessage: function(appId) {
-		var button = $('<button>').text(t('settings', 'Reload'));
-		button.on('click', function() { window.location.reload(); });
-		$('div#app-'+appId+' .info')
-			.show()
-			.text(t('settings', 'The app needs to be updated, please reload the page.') + ' ')
-			.append(button);
+		var source   = $("#app-upgrade-template").html();
+		var template = Handlebars.compile(source);
+		$('body').append(template());
 	},
 
 	filter: function(query) {
