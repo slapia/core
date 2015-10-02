@@ -523,3 +523,10 @@ doesnotexist:-o-prefocus, .strengthify-wrapper {
 #warning {
 	color: red;
 }
+
+#apps-list .info {
+	margin-top: 8px;
+	padding: 5px;
+	background: #DFD;
+	border-radius: 3px;
+}

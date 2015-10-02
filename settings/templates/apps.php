@@ -123,6 +123,7 @@ script(
 	{{/if}}
 
 	<div class="warning hidden"></div>
+	<div class="info hidden"></div>
 
 	</div>
 </script>
