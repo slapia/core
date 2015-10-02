@@ -21,6 +21,7 @@ DATABASEUSER=oc_autotest$EXECUTOR_NUMBER
 DATABASEHOST=localhost
 ADMINLOGIN=admin$EXECUTOR_NUMBER
 BASEDIR=$PWD
+export DEBUG=1
 
 PRIMARY_STORAGE_CONFIGS="local swift"
 DBCONFIGS="sqlite mysql mariadb pgsql oci"
@@ -139,8 +140,8 @@ function cleanup_config {
 		rm config/autoconfig.php
 	fi
 	# Remove autotest swift storage config
-	if [ -f config/config-autotest-storage-swift.php ]; then
-		rm config/config-autotest-storage-swift.php
+	if [ -f config/autotest-storage-swift.config.php ]; then
+		rm config/autotest-storage-swift.config.php
 	fi
 }
 
@@ -271,7 +272,7 @@ function execute_tests {
 
 	if [ "$PRIMARY_STORAGE_CONFIG" == "swift" ] ; then
 		echo "Kill the swift docker"
-		tests/objectstore/stop-swift-ceph.sh
+		#tests/objectstore/stop-swift-ceph.sh
 	fi
 
 	if [ ! -z "$DOCKER_CONTAINER_ID" ] ; then

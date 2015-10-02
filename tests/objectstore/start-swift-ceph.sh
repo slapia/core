@@ -21,7 +21,7 @@ echo "Docker executable found - setup docker"
 
 docker_image=xenopathic/ceph-keystone
 
-#echo "Fetch recent ${docker_image} docker image"
+echo "Fetch recent ${docker_image} docker image"
 docker pull ${docker_image}
 
 # retrieve current folder to place the config in the parent folder
@@ -70,7 +70,7 @@ while ! (nc -c -w 1 ${host} 80 </dev/null >&/dev/null \
     fi
 done
 echo
-sleep 1
+sleep 1 # the keystone server also needs some time to fully initialize
 
 cat > $thisFolder/swift.config.php <<DELIM
 <?php
@@ -83,11 +83,9 @@ cat > $thisFolder/swift.config.php <<DELIM
 		'container' => 'owncloud-autotest$EXECUTOR_NUMBER',
 		'autocreate' => true,
 		'region' => '$region',
-		//'region' => 'RegionOne',
 		'url' => 'http://$host:$port/v2.0',
 		'tenantName' => '$tenant',
 		'serviceName' => '$service',
-		//'serviceName' => 'swift',
 	),
 ),
 );
@@ -95,6 +93,7 @@ cat > $thisFolder/swift.config.php <<DELIM
 DELIM
 
 if [ -n "$DEBUG" ]; then
+    mount
     cat $thisFolder/swift.config.php
     cat $thisFolder/dockerContainerCeph.$EXECUTOR_NUMBER.swift
 fi
