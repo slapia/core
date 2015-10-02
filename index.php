@@ -46,12 +46,27 @@ try {
 	OC_Response::setStatus(OC_Response::STATUS_SERVICE_UNAVAILABLE);
 	OC_Template::printExceptionErrorPage($ex);
 } catch (\OC\HintException $ex) {
-	OC_Response::setStatus(OC_Response::STATUS_SERVICE_UNAVAILABLE);
-	OC_Template::printErrorPage($ex->getMessage(), $ex->getHint());
+	// if there is an exception during OC_Template::printErrorPage the message can be shown as plain text
+	try {
+		OC_Response::setStatus(OC_Response::STATUS_SERVICE_UNAVAILABLE);
+		OC_Template::printErrorPage($ex->getMessage(), $ex->getHint());
+	} catch (Exception $exNew) {
+		\OCP\Util::logException('index', $ex);
+		\OCP\Util::logException('index', $exNew);
+		OC_Response::setStatus(OC_Response::STATUS_INTERNAL_SERVER_ERROR);
+		print($ex->getMessage());
+	}
 } catch (Exception $ex) {
 	\OCP\Util::logException('index', $ex);
 
 	//show the user a detailed error page
 	OC_Response::setStatus(OC_Response::STATUS_INTERNAL_SERVER_ERROR);
-	OC_Template::printExceptionErrorPage($ex);
+
+	// if there is an exception during OC_Template::printErrorPage the message can be shown as plain text
+	try {
+		OC_Template::printExceptionErrorPage($ex);
+	} catch (Exception $exNew) {
+		\OCP\Util::logException('index', $exNew);
+		print($ex->getMessage());
+	}
 }
